@@ -1,7 +1,7 @@
 {
   "name": "kopa-webrtc-producer",
   "version": "0.1.0",
-  "homepage": "/rwebrtc",
+  "homepage": "https://werbrtckopa.netlify.app/",
   "private": true,
   "dependencies": {
     "@mantine/core": "^2.0.3",

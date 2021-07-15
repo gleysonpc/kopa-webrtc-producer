@@ -18,8 +18,9 @@ export default function Chat() {
     useEffect(() => {
         async function loadMessagesList() {
             const messagesList = await socket?.request('listChatMessages')
-            setMessages(messagesList?.sort(sortMessages))        }
-        if(socket?.connected){
+            setMessages(messagesList?.sort(sortMessages))
+        }
+        if (socket?.connected) {
             loadMessagesList()
         }
     }, [socket])
@@ -35,10 +36,10 @@ export default function Chat() {
     useEffect(() => {
         socket?.on('chatMessage', async (data) => {
             setMessages([...messages, data.message].sort(sortMessages))
-        })        
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [socket])
-    
+
     return (
         <ChatContainer>
             <ChatHeader>
