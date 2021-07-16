@@ -33,7 +33,7 @@ class MediaSoupService {
     }
 
     async stopTransmission() {
-        await this._socket.request('producerTransportClosed')
+        await this._socket?.request('producerTransportClosed')
     }
 
     async startTransmission() {
@@ -103,15 +103,13 @@ class MediaSoupService {
             const audioParams = { track: audioTrack }
 
             videoParams.encodings = [
-                { maxBitrate: 100000 },
-                { maxBitrate: 300000 },
-                { maxBitrate: 900000 },
+                { maxBitrate: 3000000, scaleResolutionDownBy: 1 },
+                { maxBitrate: 1000000, scaleResolutionDownBy: 2 },
+                { maxBitrate: 600000, scaleResolutionDownBy: 4 },
             ]
 
             this._producer.video = await transport.produce(videoParams)
             this._producer.audio = await transport.produce(audioParams)
-
-
         } catch (err) {
             console.error('stream error', err)
         }

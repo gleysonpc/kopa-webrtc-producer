@@ -16,7 +16,7 @@ export function getSocketConnection(userName, roomName) {
         return socketConnection
     }
 
-    socketConnection = SocketIO(hostname, { auth: { token }, transport: ['websocket', 'polling'], path: '/v6' })   
+    socketConnection = SocketIO(hostname, { auth: { token }, transports: ['websocket', 'polling'], path: '/v6' })
 
     socketConnection.request = (type, data = {}) => {
         return new Promise((resolve) => {
@@ -27,7 +27,7 @@ export function getSocketConnection(userName, roomName) {
     socketConnection.on('connect', async () => {
         await socketConnection.request('joinRoom', { roomId: rawToken.room })
     })
-    window.socket =  socketConnection
+    window.socket = socketConnection
 
     return socketConnection
 }

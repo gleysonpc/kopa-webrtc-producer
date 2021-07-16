@@ -6,27 +6,18 @@ import Player from '../../components/Player'
 
 import { Layout } from './styles'
 import { useAuth } from '../../contexts/auth'
-import {getSocketConnection} from '../../services/socketService'
+import { getSocketConnection } from '../../services/socketService'
 
 export default function Producer() {
     const [videoTracks, setVideoTracks] = useState([])
     const [audioTracks, setAudioTracks] = useState([])
 
-    const [audioSource /*setAudioSource */] = useState(true)
-    const [videoSource /*setVideoSource */] = useState(true)
     const [localStream, setLocalStream] = useState()
     const [isLive, setIsLive] = useState(false)
-    const {user} = useAuth()
-    const {socket} = window
+    const { user } = useAuth()
+    const { socket } = window
 
     const videoElement = useRef()
- 
-    // function stopLocalStream() {
-    //     if (localStream) {
-    //         localStream.getTracks().forEach((track) => track.stop())
-    //     }
-    // }
-
 
     function gotStream(stream) {
         setLocalStream(stream)
@@ -58,17 +49,17 @@ export default function Producer() {
     }
 
     useEffect(() => {
-        if(user.name){
+        if (user.name) {
             getSocketConnection(user.name, user.room)
-        }                
-    },[user.name, user.room])
+        }
+    }, [user.name, user.room])
 
     useEffect(() => {
         navigator.mediaDevices
-            .getUserMedia({ audio: audioSource, video: videoSource })
+            .getUserMedia({ audio: true, video: true })
             .then(gotStream)
             .catch((error) => console.log(error))
-    }, [audioSource, videoSource])
+    }, [])
 
     useEffect(() => {
         navigator.mediaDevices
@@ -91,8 +82,7 @@ export default function Producer() {
         videoElement.current.srcObject = localStream
     }, [localStream])
 
-    function toggleIsLive() {        
-
+    function toggleIsLive() {
         if (!socket.connected) return alert('Socket não conectado!')
         if (!localStream) return alert('Nenhuma fonte de de mídia disponível!')
 
@@ -102,7 +92,7 @@ export default function Producer() {
             mediaSoup.startTransmission()
             setIsLive(true)
             return
-        } else {           
+        } else {
             mediaSoup.stopTransmission()
             setIsLive(false)
         }

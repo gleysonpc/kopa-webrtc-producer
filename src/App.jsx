@@ -1,7 +1,6 @@
 import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from './contexts/auth'
 import { ContextCompose } from './contexts/contextCompose'
-import { SocketProvider } from './contexts/websocket'
 import Routes from './routes'
 import { GlobalStyle } from './styles/global'
 
@@ -10,7 +9,7 @@ function App() {
         <>
             <GlobalStyle />
             <BrowserRouter>
-                <ContextCompose components={[AuthProvider, SocketProvider]}>
+                <ContextCompose components={[AuthProvider]}>
                     <Routes />
                 </ContextCompose>
             </BrowserRouter>

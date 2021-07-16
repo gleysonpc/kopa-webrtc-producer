@@ -23,6 +23,7 @@ export default function Player({
             <PlayerFooter>
                 <Avatar>
                     <img src={avatarImg} alt="Avatar" />
+
                     <p>{user.name}</p>
                 </Avatar>
                 <LiveButton
