@@ -33,7 +33,11 @@ class MediaSoupService {
     }
 
     async stopTransmission() {
-        await this._socket?.request('producerTransportClosed')
+        await this._socket?.request('mediaProducerPause', {kinds: ['video', 'audio']})        
+    }
+
+    async resumeTransmission() {
+        await this._socket?.request('mediaProducerResume',{kinds: ['video', 'audio']})
     }
 
     async startTransmission() {
@@ -47,7 +51,7 @@ class MediaSoupService {
             rtpCapabilities: this._mediaDevice.rtpCapabilities,
         })
 
-        const transport = this._mediaDevice.createSendTransport(data)
+        const transport = this._mediaDevice.createSendTransport(data)     
 
         transport.on(
             'connect',

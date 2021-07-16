@@ -100,6 +100,8 @@ export default function Producer() {
 
     return (
         <Layout>
+            <button onClick={() => mediaSoup.stopTransmission()} >pause</button>
+            <button onClick={() => mediaSoup.resumeTransmission()}>resume</button>
             <Player
                 isLive={isLive}
                 toggleIsLive={toggleIsLive}
